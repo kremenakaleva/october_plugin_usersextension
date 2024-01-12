@@ -56,25 +56,11 @@ class Plugin extends PluginBase
                     \Validator::replacer('isunique', function ($message, $attribute, $rule, $parameters) {
                         return 'The email has already been taken.';
                     });
-
-
-
             }
 
             $model->bindEvent('model.beforeSave', function() use ($model) {
                 $model->email = strtolower(trim($model->email));
             });
-
-        });
-
-        \Event::listen('rainlab.user.beforeAuthenticate', function($component, $credentials) {
-            $login = array_get($credentials, 'login');
-            $password = array_get($credentials, 'password');
-            $login = strtolower(trim($login));
-//            // No such user exists
-//            if (!$user = Auth::findUserByLogin($login)) {
-//                return;
-//            }
 
         });
 
